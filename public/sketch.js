@@ -15,7 +15,8 @@ function next() {
     submit: createButton('submit'),
   };
   conversation.prompt.size(500);
-  conversation.submit.mousePressed(submitGPT);
+  // conversation.submit.mousePressed(submitGPT);
+  conversation.prompt.changed(submitGPT);
   return conversation;
 }
 
@@ -29,7 +30,7 @@ async function submitGPT() {
   const prompt = current.prompt.value();
   const inputs = {
     prompt: prompt,
-    temperature: 1.0,
+    temperature: 1.2,
     num: 1,
     messages: messages,
   };

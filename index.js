@@ -7,6 +7,7 @@ const app = express();
 import fs from 'fs';
 
 const instructions = fs.readFileSync('instructions.txt', 'utf-8');
+const instructions_short = fs.readFileSync('instructions_short.txt', 'utf-8');
 
 // make all the files in 'public' available
 app.use(express.static('public'));
@@ -29,10 +30,11 @@ dotenv.config();
 
 async function queryOpenAI(data) {
   const { prompt, temperature, num, messages } = data;
-  console.log(data);
+  // console.log(data);
   messages.unshift({ role: 'system', content: instructions });
   messages.push({ role: 'user', content: prompt });
-
+  messages.push({ role: 'system', content: instructions_short });
+  console.log(messages);
   const openai_api = 'https://api.openai.com/v1/chat/completions';
   const response = await fetch(openai_api, {
     method: 'POST',
